@@ -16,8 +16,9 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('API')
-    .setDescription('PLATZI STORE')
+    .setDescription('Portfolio Tracker API')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

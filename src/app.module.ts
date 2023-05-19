@@ -9,6 +9,7 @@ import { environments } from './environments/environments';
 import config from './config';
 import { UsersModule } from './users/users.module';
 import { FinancialInstrumentsModule } from './financial-instruments/financial-instruments.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,12 +22,14 @@ import { FinancialInstrumentsModule } from './financial-instruments/financial-in
         API_KEY: Joi.number().required(),
         DATABASE_NAME: Joi.string().required(),
         DATABASE_PORT: Joi.number().required(),
+        JWT_SECRET: Joi.string().required(),
       }),
     }),
     // HttpModule,
     DatabaseModule,
     UsersModule,
     FinancialInstrumentsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
