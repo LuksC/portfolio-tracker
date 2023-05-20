@@ -17,6 +17,9 @@ export class FinancialInstrument extends Document {
 
     @Prop({ required: true })
     exchange: string;
+
+    @Prop({required: true})
+    ratio: number;
   }
 
   export const FinancialInstrumentSchema = SchemaFactory.createForClass(FinancialInstrument);

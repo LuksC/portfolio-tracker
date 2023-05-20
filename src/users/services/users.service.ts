@@ -5,11 +5,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../entities/user.entity';
 import * as bcrypt from 'bcrypt';
+import { Investment } from '../entities/investment.entity';
+import { CreateInvestmentDto } from '../dto/create-investment.dto';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectModel(User.name) private userModel: Model<User>
+    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Investment.name) private investmentModel: Model<Investment>,
   ) {
   }
 
@@ -22,6 +25,20 @@ export class UsersService {
 
   findAll() {
     return this.userModel.find().exec()
+  }
+
+  addInvestment(createInvestementsDto: CreateInvestmentDto) {
+    const newModel = new this.investmentModel(createInvestementsDto)
+    return newModel.save()
+  }
+
+  async getInvestments(id: string) {
+    return await this.investmentModel.find({user: id}).exec()
+  }
+
+  async getOneInvestment(userId: string, investmentId: string) {
+    console.log(investmentId, userId)
+    return await this.investmentModel.findOne({user: userId, _id: investmentId}).populate('user').populate('instrument_type').exec()
   }
 
   findOne(id: string) {

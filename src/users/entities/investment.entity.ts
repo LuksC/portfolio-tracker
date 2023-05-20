@@ -1,14 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { User } from './user.entity';
+import { FinancialInstrument } from 'src/financial-instruments/entities/financial-instrument.entity';
 
 @Schema()
 export class Investment extends Document {
   @Prop({ type: Types.ObjectId, ref: User.name, required: true })
   user: User | Types.ObjectId;
 
-  @Prop({ required: true })
-  instrument_type: string; // TODO: Enum o ref
+  @Prop({ type: Types.ObjectId, ref: FinancialInstrument.name, required: true })
+  instrument_type: FinancialInstrument | Types.ObjectId;
 
   @Prop({ required: true })
   instrument_name: string;

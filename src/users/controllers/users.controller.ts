@@ -6,6 +6,8 @@ import { UsersService } from '../services/users.service';
 import { MongoIdPipe } from 'src/pipes/mongo-id.pipe';
 import { SanitizeMongooseModelInterceptor } from 'nestjs-mongoose-exclude';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { CreateInvestmentDto } from '../dto/create-investment.dto';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
@@ -26,9 +28,26 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.usersService.findAll();
+  }
+
+  @Post(':id/investments')
+  addInvestment(@Body() createInvestmenDto: CreateInvestmentDto) {
+
+    return this.usersService.addInvestment(createInvestmenDto);
+  }
+
+  @Get(':id/investments')
+  getInvestments(@Param('id', MongoIdPipe) id: string) {
+    return this.usersService.getInvestments(id)
+  }
+
+  @Get(':id/investments/:investmentId')
+  getOneInvestment(@Param('id', MongoIdPipe) id: string, @Param('investmentId', MongoIdPipe) investmentId: string ) {
+    return this.usersService.getOneInvestment(id, investmentId)
   }
 
   @Get(':id')

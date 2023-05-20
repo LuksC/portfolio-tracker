@@ -15,9 +15,11 @@ export class User extends Document {
   password: string;
 
   @Prop({ default: Date.now })
+  @ExcludeProperty()
   created_at: Date;
 
   @Prop({ default: Date.now })
+  @ExcludeProperty()
   updated_at: Date;
 }
 
