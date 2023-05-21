@@ -13,6 +13,11 @@ export default registerAs('config', () => {
       host: process.env.MONGO_HOST,
       connection: process.env.MONGO_CONNECTION,
     },
+    google: {
+      id: process.env.GOOGLE_ID,
+      secret: process.env.GOOGLE_SECRET,
+      callback: process.env.GOOGLE_CALLBACK,
+    },
     apiKey: process.env.API_KEY,
     jwtSecret: process.env.JWT_SECRET,
   };

@@ -1,4 +1,4 @@
-import { Controller, Post, Req, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { User } from '../../users/entities/user.entity';
 import { ApiTags } from '@nestjs/swagger';
 import { SanitizeMongooseModelInterceptor } from 'nestjs-mongoose-exclude';
+import { GoogleAuthGuard } from '../guards/google-auth.guard';
 
 @UseInterceptors(
   new SanitizeMongooseModelInterceptor({
@@ -22,5 +23,18 @@ export class AuthController {
   login(@Req() req: Request) {
     const user = req.user as User;
     return this.authService.generateJWT(user);
+  }
+
+  @Get('google/login')
+  @UseGuards(AuthGuard('google'))
+  handleLogin() {
+    return { msg: 'Google Authentication' };
+  }
+
+  // api/auth/google/redirect
+  @Get('google/redirect')
+  @UseGuards(GoogleAuthGuard)
+  handleRedirect() {
+    return { msg: 'OK' };
   }
 }

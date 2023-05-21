@@ -21,9 +21,10 @@ async function bootstrap() {
     .setDescription('Portfolio Tracker API')
     .setVersion('1.0')
     .build();
+    // app.setGlobalPrefix('api')
+    app.enableCors();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
-  app.enableCors();
   await app.listen(3000);
 }
 bootstrap();
