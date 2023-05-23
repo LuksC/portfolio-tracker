@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Req, Res, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -31,10 +31,10 @@ export class AuthController {
     return { msg: 'Google Authentication' };
   }
 
-  // api/auth/google/redirect
   @Get('google/redirect')
   @UseGuards(GoogleAuthGuard)
-  handleRedirect() {
-    return { msg: 'OK' };
+  handleRedirect(@Req() req: Request) {
+    const user = req.user as User;
+    return this.authService.generateJWT(user);
   }
 }

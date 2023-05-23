@@ -10,16 +10,7 @@ export class GoogleAuthGuard extends AuthGuard('google') {
     super();
   }
 
-  // canActivate(context: ExecutionContext) {
-  //   const isPublic = this.reflector.get(IS_PUBLIC_KEY, context.getHandler());
-  //   if (isPublic) {
-  //     return true;
-  //   }
-  //   return super.canActivate(context);
-  // }
-
   async canActivate(context: ExecutionContext) {
-    console.log("🚀 ~ file: google-auth.guard.ts:22 ~ GoogleAuthGuard ~ canActivate ~ canActivate:", "canActivate")
     const isPublic = this.reflector.get(IS_PUBLIC_KEY, context.getHandler());
     if (isPublic) {
       return true;
