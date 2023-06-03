@@ -16,7 +16,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       clientID: configService.google.id,
       clientSecret: configService.google.secret,
       callbackURL: configService.google.callback,
-      scope: ['email']
+      scope: ['profile', 'email']
     });
   }
 
@@ -25,6 +25,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     if (!user) {
       throw new UnauthorizedException('not allow');
     }
-    return user;
+    done(null, user);
   }
 }

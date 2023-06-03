@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Res, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -26,10 +26,9 @@ export class AuthController {
   }
 
   @Get('google/login')
-  @UseGuards(AuthGuard('google'))
-  handleLogin() {
-    return { msg: 'Google Authentication' };
-  }
+  @UseGuards(GoogleAuthGuard)
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  handleLogin() { }
 
   @Get('google/redirect')
   @UseGuards(GoogleAuthGuard)
